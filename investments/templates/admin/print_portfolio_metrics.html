@@ -1,0 +1,133 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            background-color: white;
+        }
+        h2 { 
+            margin-bottom: 20px; 
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        td.metric {
+            text-align: left;
+            font-weight: bold;
+            background-color: #f8f9fa;
+            width: 25%;
+        }
+        .print-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+        }
+        .print-button {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .print-button button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #007cba;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .print-button button:hover {
+            background-color: #005a87;
+        }
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>{{ title }}</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="metric">Metric</th>
+                <th>ALL</th>
+                <th>ACTIVE</th>
+                <th>YTD</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, values in summary.items %}
+            <tr>
+                <td class="metric">
+                    {% if key == "XIRR" %}
+                        XIRR 
+                    {% elif key == "TARGET_IRR" %}
+                        Target IRR 
+                    {% elif key == "GAP_TO_TARGET_IRR" %}
+                        Gap to Target IRR 
+                    {% elif key == "TOTAL_INVESTED" %}
+                        Total Invested (USD)
+                    {% elif key == "TOTAL_RETURNED" %}
+                        Total Returned (USD)
+                    {% elif key == "NAV" %}
+                        NAV (USD)
+                    {% elif key == "ESTIMATED_RETURN" %}
+                        Estimated Return (USD)
+                    {% elif key == "XNPV" %}
+                        XNPV (USD)
+                    {% elif key == "DPI" %}
+                        DPI
+                    {% elif key == "TVPI" %}
+                        TVPI
+                    {% else %}
+                        {{ key }}
+                    {% endif %}
+                </td>
+                <td>
+                    {# 🔧 FIX: Значения уже отформатированы в admin.py, просто выводим их #}
+                    {{ values.ALL|default:"-" }}
+                </td>
+                <td>
+                    {{ values.ACTIVE|default:"-" }}
+                </td>
+                <td>
+                    {{ values.YTD|default:"-" }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="print-button">
+        <button onclick="window.print()">🖨️ Print This Report</button>
+    </div>
+
+    <div class="print-footer">
+        <p>Generated on {{ now|date:"F d, Y \a\\t H:i" }}</p>
+    </div>
+</body>
+</html>

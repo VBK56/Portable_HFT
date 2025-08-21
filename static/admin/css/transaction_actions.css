@@ -1,0 +1,148 @@
+/* static/admin/css/transaction_actions.css */
+
+/* 🎯 КНОПКИ ДЕЙСТВИЙ ДЛЯ ТРАНЗАКЦИЙ */
+
+/* ACTIONS - новая 9-я колонка */
+.inline-group table th:nth-child(9),
+.inline-group table td:nth-child(9) {
+  width: 10% !important;
+  max-width: 100px !important;
+  min-width: 80px !important;
+  text-align: center !important;
+  padding: 4px 6px !important;
+  display: table-cell !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.inline-group table th:nth-child(9) {
+  font-size: 13px !important;
+  font-weight: bold !important;
+  background-color: #417690 !important;
+  color: white !important;
+}
+
+.inline-group table td:nth-child(9) {
+  background-color: #fff !important;
+}
+
+/* 🎨 СТИЛИ ДЛЯ КНОПОК ДЕЙСТВИЙ */
+.transaction-actions {
+  white-space: nowrap !important;
+  text-align: center !important;
+  min-width: 80px !important;
+}
+
+.django-btn-edit, 
+.django-btn-delete,
+.django-btn-restore {
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  margin: 0 3px !important;
+  padding: 4px 6px !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+}
+
+.django-btn-edit:hover {
+  background-color: #e3f2fd !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.django-btn-delete:hover {
+  background-color: #ffebee !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.django-btn-restore:hover {
+  background-color: #e8f5e9 !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.django-btn-edit:disabled,
+.django-btn-delete:disabled,
+.django-btn-restore:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* 🎨 СОСТОЯНИЯ ПОЛЕЙ */
+.readonly-field {
+  background-color: #f8f9fa !important;
+  border: 1px solid #e9ecef !important;
+  color: #6c757d !important;
+  cursor: not-allowed !important;
+}
+
+.editable-field {
+  background-color: #fff !important;
+  border: 2px solid #28a745 !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+.editable-field:focus {
+  border-color: #1e7e34 !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.4) !important;
+}
+
+/* 🎨 СОСТОЯНИЯ СТРОК */
+.readonly-row {
+  background-color: #f8f9fa !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.editable-row {
+  background-color: #f0fff4 !important;
+  border-left: 4px solid #28a745 !important;
+  transition: all 0.3s ease !important;
+}
+
+.deleted-row {
+  background-color: #f8d7da !important;
+  opacity: 0.7 !important;
+}
+
+.deleted-row td {
+  text-decoration: line-through !important;
+}
+
+/* 🎨 АНИМАЦИИ */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.django-btn-edit:active,
+.django-btn-delete:active,
+.django-btn-restore:active {
+  animation: pulse 0.2s ease !important;
+}
+
+/* Индикатор загрузки */
+.django-btn-edit:disabled,
+.django-btn-delete:disabled,
+.django-btn-restore:disabled {
+  animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 🎨 УВЕДОМЛЕНИЯ */
+.django-message {
+  font-family: system-ui, -apple-system, Arial, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  z-index: 10000 !important;
+}
