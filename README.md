@@ -1,21 +1,20 @@
-# Django Investment Tracker v3.2 - Portable
+# Django Investment Tracker v3.2
+
+## 📥 DOWNLOAD
+### [⬇️ Download ZIP](https://github.com/VBK56/django-investment-portable/archive/refs/heads/main.zip)
+
+---
 
 ## Quick Start
 
 ### Windows:
-1. Run setup_windows.bat
-2. Create admin: python manage.py createsuperuser
-3. Start: python manage.py runserver
+1. Download and unzip
+2. Run `setup_windows.bat` (first time only)
+3. Run `start_windows.bat` (daily use)
 
-### Mac/Linux:
-1. Run: chmod +x setup_mac.sh && ./setup_mac.sh
-2. Create admin: python manage.py createsuperuser
-3. Start: python manage.py runserver
+### Mac:
+1. Download and unzip
+2. Run `setup_mac.sh` (first time only)  
+3. Run `start_mac.sh` (daily use)
 
-## Features
-- Portfolio management
-- XIRR/TVPI/DPI/RVPI calculations
-- Transaction tracking
-- PWA support
-
-Default: http://localhost:8000
+Admin panel: http://localhost:8000/admin
