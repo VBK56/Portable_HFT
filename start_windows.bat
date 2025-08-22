@@ -1,5 +1,6 @@
 @echo off
-echo Starting Django Server...
-call venv\Scriptsctivate
+echo Starting Django Investment Tracker...
+echo.
+call venv\Scripts\activate
 python manage.py runserver
 pause
