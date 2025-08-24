@@ -1,0 +1,44 @@
+{% load metrics_filters %}
+
+<!-- 🎯 БАЗОВЫЙ КОМПОНЕНТ ТАБЛИЦЫ -->
+<div class="table-container">
+  <table class="table-unified {{ table_classes }}">
+    
+    <!-- 📋 ЗАГОЛОВКИ -->
+    <thead>
+      <tr>
+        {% for column in columns %}
+          <th class="col-{{ column.type }} {{ column.css_classes|default:'' }}"
+              {% if column.width %}style="width: {{ column.width }}; max-width: {{ column.width }};"{% endif %}
+              {% if column.aria_label %}aria-label="{{ column.aria_label }}"{% endif %}>
+            {{ column.label }}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    
+    <!-- 📊 ДАННЫЕ -->
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          {% for column in columns %}
+            <td class="col-{{ column.type }} {{ column.css_classes|default:'' }}">
+              {% if column.format_type %}
+                {% format_metric row|get_item:column.key column.format_type %}
+              {% else %}
+                {{ row|get_item:column.key|default:"-" }}
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="{{ columns|length }}" style="text-align: center; font-style: italic; padding: 20px;">
+            {{ empty_message|default:"No data available" }}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    
+  </table>
+</div>
