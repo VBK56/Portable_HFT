@@ -1,0 +1,111 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content %}
+{{ block.super }}
+
+<!-- Custom Action Buttons -->
+<div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+  <form method="post" action="recalculate/" style="display: inline;">{% csrf_token %}
+    <button type="submit" class="button btn btn-success" style="background-color: #28a745; color: white; padding: 8px 16px; border: none; border-radius: 4px;">
+      🔄 Recalculate All Metrics
+    </button>
+  </form>
+  <form method="post" action="backup/" style="display: inline;">{% csrf_token %}
+    <button type="submit" class="button btn btn-info" style="background-color: #17a2b8; color: white; padding: 8px 16px; border: none; border-radius: 4px;">
+      💾 Create Backup
+    </button>
+  </form>
+</div>
+
+<!-- Portfolio Performance Metrics Table -->
+<div style="margin: 30px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+  <h2 style="margin-bottom: 20px; color: #333; border-bottom: 2px solid #007cba; padding-bottom: 10px;">
+    📊 Portfolio Performance Overview
+  </h2>
+
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; background-color: white; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <thead>
+        <tr style="background-color: #007cba; color: white;">
+          <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold;">Metric</th>
+          <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold;">ALL</th>
+          <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold;">ACTIVE</th>
+          <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold;">YTD</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if portfolio_summary %}
+          {% for key, values in portfolio_summary.items %}
+          <tr {% cycle 'style="background-color: #f9f9f9;"' 'style="background-color: white;"' %}>
+            <td style="border: 1px solid #ddd; padding: 10px; font-weight: bold; color: #333;">{{ key }}</td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">
+              {% if values.ALL is not None %}
+                {% if key in "TOTAL_INVESTED,TOTAL_RETURNED,NAV,ESTIMATED_RETURN,XNPV" %}
+                  ${{ values.ALL|floatformat:2 }}
+                {% elif key in "XIRR,TARGET_IRR,GAP_TO_TARGET_IRR" %}
+                  {{ values.ALL|floatformat:2 }}%
+                {% elif key in "DPI,TVPI" %}
+                  {{ values.ALL|floatformat:2 }}x
+                {% else %}
+                  {{ values.ALL|floatformat:2 }}
+                {% endif %}
+              {% else %}
+                <span style="color: #999;">–</span>
+              {% endif %}
+            </td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">
+              {% if values.ACTIVE is not None %}
+                {% if key in "TOTAL_INVESTED,TOTAL_RETURNED,NAV,ESTIMATED_RETURN,XNPV" %}
+                  ${{ values.ACTIVE|floatformat:2 }}
+                {% elif key in "XIRR,TARGET_IRR,GAP_TO_TARGET_IRR" %}
+                  {{ values.ACTIVE|floatformat:2 }}%
+                {% elif key in "DPI,TVPI" %}
+                  {{ values.ACTIVE|floatformat:2 }}x
+                {% else %}
+                  {{ values.ACTIVE|floatformat:2 }}
+                {% endif %}
+              {% else %}
+                <span style="color: #999;">–</span>
+              {% endif %}
+            </td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">
+              {% if values.YTD is not None %}
+                {% if key in "TOTAL_INVESTED,TOTAL_RETURNED,NAV,ESTIMATED_RETURN,XNPV" %}
+                  ${{ values.YTD|floatformat:2 }}
+                {% elif key in "XIRR,TARGET_IRR,GAP_TO_TARGET_IRR" %}
+                  {{ values.YTD|floatformat:2 }}%
+                {% elif key in "DPI,TVPI" %}
+                  {{ values.YTD|floatformat:2 }}x
+                {% else %}
+                  {{ values.YTD|floatformat:2 }}
+                {% endif %}
+              {% else %}
+                <span style="color: #999;">–</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="4" style="border: 1px solid #ddd; padding: 20px; text-align: center; color: #999; font-style: italic;">
+              No portfolio data available
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top: 15px; font-size: 12px; color: #666; text-align: center;">
+    <p><strong>ALL:</strong> All projects | <strong>ACTIVE:</strong> Active projects only | <strong>YTD:</strong> Projects with transactions this year</p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+<div id="changelist-filter" class="module" style="width: 140px;">
+  {{ block.super }}
+</div>
+{% endblock %}

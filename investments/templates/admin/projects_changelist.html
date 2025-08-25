@@ -1,0 +1,136 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+{% load humanize %}
+{% load metrics_filters %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <a href="{% url 'admin:recalculate_all' %}" class="button" style="background: #28a745; color: white;">
+            🔄 Recalculate All Projects
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'admin:create_backup' %}" class="button" style="background: #007bff; color: white;">
+            📦 Create Backup
+        </a>
+    </li>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/tables-unified.css' %}">
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+
+    {% if portfolio_summary %}
+        <h2 style="margin-top: 30px;">📊 Portfolio Performance Summary</h2>
+        
+        <!-- 🆕 ИСПОЛЬЗУЕМ НОВЫЙ КЛАСС ТАБЛИЦЫ -->
+        <table class="table-unified portfolio-summary" style="margin-top: 15px;">
+            <thead>
+                <tr>
+                    <th class="col-text">Metric</th>
+                    <th class="col-currency">ALL</th>
+                    <th class="col-currency">ACTIVE</th>
+                    <th class="col-currency">YTD</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for metric, values in portfolio_summary.items %}
+                    <tr>
+                        <td class="col-text">
+                            {% if metric == "XIRR" %}
+                                XIRR (%)
+                            {% elif metric == "PORTFOLIO_AVG_IRR" %}
+                                Portfolio Average IRR (mIRR)
+                            {% elif metric == "TARGET_IRR" %}
+                                Target IRR (%)
+                            {% elif metric == "GAP_TO_TARGET_IRR" %}
+                                Gap to Target IRR (%)
+                            {% elif metric == "TOTAL_INVESTED" %}
+                                Total Invested (USD)
+                            {% elif metric == "TOTAL_RETURNED" %}
+                                Total Returned (USD)
+                            {% elif metric == "NAV" %}
+                                NAV (USD)
+                            {% elif metric == "ESTIMATED_RETURN" %}
+                                Estimated Return (USD)
+                            {% elif metric == "XNPV" %}
+                                XNPV (USD)
+                            {% elif metric == "DPI" %}
+                                DPI
+                            {% elif metric == "TVPI" %}
+                                TVPI
+                            {% else %}
+                                {{ metric }}
+                            {% endif %}
+                        </td>
+
+                        {% if metric in "TOTAL_INVESTED,TOTAL_RETURNED,NAV,ESTIMATED_RETURN,XNPV" %}
+                            {# Валютные значения #}
+                            <td class="col-currency">
+                                {% if values.ALL and values.ALL != 0 %}{{ values.ALL|currency }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-currency">
+                                {% if values.ACTIVE and values.ACTIVE != 0 %}{{ values.ACTIVE|currency }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-currency">
+                                {% if values.YTD and values.YTD != 0 %}{{ values.YTD|currency }}{% else %}-{% endif %}
+                            </td>
+                        
+                        {% elif metric in "XIRR,TARGET_IRR,GAP_TO_TARGET_IRR,PORTFOLIO_AVG_IRR" %}
+                            {# Процентные значения #}
+                            <td class="col-percentage">
+                                {% if values.ALL is not None %}{{ values.ALL|percentage_value }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-percentage">
+                                {% if values.ACTIVE is not None %}{{ values.ACTIVE|percentage_value }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-percentage">
+                                {% if values.YTD is not None %}{{ values.YTD|percentage_value }}{% else %}-{% endif %}
+                            </td>
+
+                        
+                        
+                        {% elif metric in "DPI,TVPI" %}
+                            {# Множители #}
+                            <td class="col-multiple">
+                                {% if values.ALL is not None and values.ALL != 0 %}{{ values.ALL|multiple }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-multiple">
+                                {% if values.ACTIVE is not None and values.ACTIVE != 0 %}{{ values.ACTIVE|multiple }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-multiple">
+                                {% if values.YTD is not None and values.YTD != 0 %}{{ values.YTD|multiple }}{% else %}-{% endif %}
+                            </td>
+                        
+                        {% else %}
+                            {# Остальные значения #}
+                            <td class="col-currency">
+                                {% if values.ALL is not None and values.ALL != 0 %}{{ values.ALL|floatformat:2 }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-currency">
+                                {% if values.ACTIVE is not None and values.ACTIVE != 0 %}{{ values.ACTIVE|floatformat:2 }}{% else %}-{% endif %}
+                            </td>
+                            <td class="col-currency">
+                                {% if values.YTD is not None and values.YTD != 0 %}{{ values.YTD|floatformat:2 }}{% else %}-{% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 10px; font-size: 11px; color: #666;">
+            <p><strong>ALL:</strong> All projects | <strong>ACTIVE:</strong> Active projects only | <strong>YTD:</strong> Projects with transactions this year</p>
+        </div>
+    {% else %}
+        <div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; text-align: center;">
+            <h3>📊 Portfolio Performance Summary</h3>
+            <p style="color: #666;">No portfolio data available. Please add some projects and transactions.</p>
+        </div>
+    {% endif %}
+{% endblock %}

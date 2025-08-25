@@ -1,0 +1,640 @@
+/* 🎯 ЕДИНАЯ СИСТЕМА ТАБЛИЦ */
+
+/* 🎯 ОСНОВНЫЕ ПЕРЕМЕННЫЕ - ОБНОВЛЕННЫЕ ДЛЯ БОЛЬШЕГО РАЗМЕРА */
+:root {
+  --table-bg: #ffffff;
+  --table-header-bg: #f8f9fa;
+  --table-stripe-bg: #f9f9f9;
+  --table-hover-bg: #f0f0f0;
+  --table-border: #ddd;
+  --table-text: #333;
+  --table-accent: #007cba;
+  --table-font: system-ui, -apple-system, Arial, sans-serif;
+  --table-font-size: 14px; /* Увеличено с 12px */
+  --table-line-height: 1.4;
+  --table-padding: 8px 12px; /* Увеличено */
+  --table-radius: 6px;
+  --table-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 🔧 ОСНОВНЫЕ СТИЛИ ТАБЛИЦ */
+#content-main table {
+  border-collapse: collapse !important;
+  background-color: var(--table-bg) !important;
+  font-family: var(--table-font) !important;
+  font-size: var(--table-font-size) !important;
+  box-shadow: var(--table-shadow) !important;
+  margin: 15px 0 !important;
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+/* 🎨 ЗАГОЛОВКИ - КОМПАКТНЫЕ И ПЕРЕНОСИМЫЕ */
+#content-main table th {
+  background-color: var(--table-header-bg) !important;
+  border: 1px solid var(--table-border) !important;
+  padding: var(--table-padding) !important;
+  font-weight: 600 !important;
+  color: var(--table-text) !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  
+  /* ✅ КЛЮЧЕВОЕ: автоматический перенос заголовков */
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  line-height: 1.1 !important;
+  
+  /* Базовые размеры */
+  min-width: 50px !important;
+  overflow: hidden !important;
+}
+
+/* 🎨 ЯЧЕЙКИ ДАННЫХ - КОМПАКТНЫЕ */
+#content-main table td {
+  border: 1px solid var(--table-border) !important;
+  padding: var(--table-padding) !important;
+  vertical-align: middle !important;
+  
+  /* ✅ КЛЮЧЕВОЕ: предотвращение переноса в данных */
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 🎨 ПОЛОСАТЫЕ СТРОКИ И HOVER */
+#content-main table tbody tr:nth-child(even) {
+  background-color: var(--table-stripe-bg) !important;
+}
+
+#content-main table tbody tr:hover {
+  background-color: var(--table-hover-bg) !important;
+}
+
+/* 🎯 ТОЧНАЯ НАСТРОЙКА ШИРИНЫ КОЛОНОК */
+
+/* 🎯 ТОЧНАЯ НАСТРОЙКА ШИРИНЫ КОЛОНОК */
+
+/* Имя проекта - сужаем для экономии места */
+#content-main table th.column-name {
+  width: 140px !important;      /* было 180px */
+  max-width: 140px !important;  
+  min-width: 120px !important;  
+  text-align: left !important;
+}
+
+#content-main table td.column-name {
+  text-align: left !important;
+  font-weight: 600 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+/* Target IRR - узкая колонка */
+#content-main table th.column-target_irr_display {
+  width: 60px !important;
+  max-width: 60px !important;
+  min-width: 50px !important;
+}
+
+#content-main table td.column-target_irr_display {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+}
+
+/* Status - узкая колонка */
+#content-main table th.column-status {
+  width: 70px !important;
+  max-width: 70px !important;
+  min-width: 60px !important;
+}
+
+#content-main table td.column-status {
+  text-align: center !important;
+  font-weight: 500 !important;
+}
+
+/* Start Date - компактная колонка */
+#content-main table th.column-start_date {
+  width: 80px !important;
+  max-width: 80px !important;
+  min-width: 70px !important;
+}
+
+#content-main table td.column-start_date {
+  text-align: center !important;
+  font-variant-numeric: tabular-nums !important;
+  font-size: 11px !important;
+}
+
+/* Валютные колонки - средние */
+#content-main table th.column-total_invested,
+#content-main table th.column-total_returned,
+#content-main table th.column-nav_display,
+#content-main table th.column-estimated_return_display {
+  width: 90px !important;
+  max-width: 90px !important;
+  min-width: 80px !important;
+}
+
+#content-main table td.column-total_invested,
+#content-main table td.column-total_returned,
+#content-main table td.column-nav_display,
+#content-main table td.column-estimated_return_display {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+  font-size: 11px !important;
+}
+
+/* XIRR - узкая колонка */
+#content-main table th.column-xirr_display {
+  width: 55px !important;
+  max-width: 55px !important;
+  min-width: 50px !important;
+}
+
+#content-main table td.column-xirr_display {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+}
+
+/* TVPI и DPI - очень узкие колонки */
+#content-main table th.column-tvpi_formatted,
+#content-main table th.column-dpi_formatted {
+  width: 50px !important;
+  max-width: 50px !important;
+  min-width: 45px !important;
+}
+
+#content-main table td.column-tvpi_formatted,
+#content-main table td.column-dpi_formatted {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+}
+
+/* RVPI - делаем узкой как DPI и TVPI */
+#content-main table th.column-rvpi_display {
+  width: 50px !important;
+  max-width: 50px !important;
+  min-width: 45px !important;
+}
+
+#content-main table td.column-rvpi_display {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+  font-weight: 600 !important;  /* Жирный для цветных значений */
+}
+
+/* Gap to Target IRR - узкая колонка */
+#content-main table th.column-gap_to_target_irr_display {
+  width: 65px !important;
+  max-width: 65px !important;
+  min-width: 55px !important;
+}
+
+#content-main table td.column-gap_to_target_irr_display {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+}
+
+/* XNPV - средняя колонка */
+#content-main table th.column-xnpv_formatted {
+  width: 85px !important;
+  max-width: 85px !important;
+  min-width: 75px !important;
+}
+
+#content-main table td.column-xnpv_formatted {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-family: ui-monospace, 'Cascadia Code', 'Roboto Mono', monospace !important;
+  font-size: 11px !important;
+}
+
+/* 🎨 PORTFOLIO SUMMARY TABLE - ОПТИМИЗИРОВАННАЯ */
+#content-main .portfolio-summary {
+  width: auto !important;
+  margin: 15px 0 !important;
+  table-layout: auto !important;
+}
+
+#content-main .portfolio-summary th:first-child {
+  text-align: left !important;
+  font-weight: bold !important;
+  width: 180px !important;
+  max-width: 180px !important;
+}
+
+#content-main .portfolio-summary th:not(:first-child) {
+  width: 100px !important;
+  max-width: 100px !important;
+  min-width: 90px !important;
+}
+
+#content-main .portfolio-summary .col-currency,
+#content-main .portfolio-summary .col-percentage,
+#content-main .portfolio-summary .col-multiple {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* 🔧 INLINE ТАБЛИЦЫ - ГАРАНТИРОВАННАЯ ВИДИМОСТЬ ВСЕХ КОЛОНОК */
+.inline-group table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 14px !important;
+  table-layout: fixed !important; /* Фиксированная для контроля ширин */
+  min-width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.inline-group table th,
+.inline-group table td {
+  border: 1px solid var(--table-border) !important;
+  padding: 8px 12px !important;
+  vertical-align: middle !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: 14px !important;
+}
+
+.inline-group table th {
+  background-color: var(--table-header-bg) !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  line-height: 1.3 !important;
+  font-size: 15px !important;
+}
+
+/* 🎯 КОМПАКТНЫЕ ШИРИНЫ КОЛОНОК - ВСЕ ПОМЕЩАЮТСЯ НА ЭКРАНЕ */
+
+/* DATE - компактная колонка */
+.inline-group table th:nth-child(1),
+.inline-group table td:nth-child(1) {
+  text-align: center !important;
+  min-width: 120px !important;
+  width: 12% !important;
+}
+
+/* TRANSACTION TYPE */
+.inline-group table th:nth-child(2),
+.inline-group table td:nth-child(2) {
+  text-align: center !important;
+  min-width: 110px !important;
+  width: 14% !important;
+}
+
+/* INVESTMENT */
+.inline-group table th:nth-child(3),
+.inline-group table td:nth-child(3) {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  min-width: 100px !important;
+  width: 12% !important;
+}
+
+/* RETURN AMOUNT */
+.inline-group table th:nth-child(4),
+.inline-group table td:nth-child(4) {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  min-width: 100px !important;
+  width: 12% !important;
+}
+
+/* EQUITY */
+.inline-group table th:nth-child(5),
+.inline-group table td:nth-child(5) {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  min-width: 100px !important;
+  width: 11% !important;
+}
+
+/* NAV */
+.inline-group table th:nth-child(6),
+.inline-group table td:nth-child(6) {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  min-width: 100px !important;
+  width: 11% !important;
+}
+
+/* X RATE */
+.inline-group table th:nth-child(7),
+.inline-group table td:nth-child(7) {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  min-width: 80px !important;
+  width: 10% !important;
+}
+
+/* DELETE - ЕДИНОЕ ОПРЕДЕЛЕНИЕ */
+.inline-group table th:nth-child(8),
+.inline-group table td:nth-child(8) {
+  width: 8% !important;
+  max-width: 80px !important;
+  min-width: 60px !important;
+  text-align: center !important;
+  padding: 4px 6px !important;
+  display: table-cell !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.inline-group table th:nth-child(8) {
+  font-size: 11px !important;
+  word-break: break-all !important;
+  background-color: #f8f9fa !important;
+}
+
+.inline-group table td:nth-child(8) {
+  background-color: #fff !important;
+}
+
+.inline-group table td:nth-child(8) input[type="checkbox"] {
+  margin: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  transform: scale(1.2) !important;
+  cursor: pointer !important;
+}
+
+/* 🎨 УЛУЧШЕНИЯ ДЛЯ INLINE ФОРМ */
+.inline-group table tbody tr:nth-child(even) {
+  background-color: var(--table-stripe-bg) !important;
+}
+
+.inline-group table tbody tr:hover {
+  background-color: var(--table-hover-bg) !important;
+}
+
+/* Увеличенные поля ввода в inline формах */
+.inline-group table input[type="text"],
+.inline-group table input[type="number"],
+.inline-group table input[type="date"],
+.inline-group table select {
+  width: 100% !important;
+  max-width: 100% !important;
+  font-size: 14px !important;
+  padding: 6px 8px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  line-height: 1.4 !important;
+}
+
+/* Кнопка Add another Transaction */
+.inline-group .add-row a {
+  font-size: 15px !important;
+  padding: 12px 20px !important;
+  background-color: #cce5ff !important;
+  border: 1px solid #66b0ff !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
+
+/* Скрыть отладочную информацию в левой панели */
+.inline-group .inline-related h3 {
+  font-size: 11px !important;
+  color: #666 !important;
+  margin: 5px 0 !important;
+}
+
+/* Улучшить отображение предупреждений */
+.inline-group .help,
+.inline-group .form-row .help {
+  font-size: 10px !important;
+  color: #888 !important;
+  white-space: normal !important;
+  line-height: 1.3 !important;
+  margin-top: 3px !important;
+}
+
+/* 🎯 КАЛЕНДАРНЫЕ КНОПКИ - СТИЛИ */
+.datetimeshortcuts {
+  display: inline-block !important;
+  margin-left: 10px !important;
+  vertical-align: middle !important;
+  margin-top: 0px !important;
+}
+
+.datetimeshortcuts a {
+  display: inline-block !important;
+  font-size: 13px !important;
+  padding: 6px 12px !important;
+  margin: 0 4px !important;
+  background: #4CAF50 !important;
+  color: white !important;
+  text-decoration: none !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  border: 2px solid #45a049 !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3) !important;
+  cursor: pointer !important;
+}
+
+.datetimeshortcuts a:hover {
+  background: #45a049 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4) !important;
+}
+
+/* Специальные стили для кнопок "Today" и "Now" */
+.datetimeshortcuts a[href*="today"],
+.datetimeshortcuts a[href*="now"] {
+  background: #2196F3 !important;
+  border: 2px solid #1976D2 !important;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3) !important;
+}
+
+.datetimeshortcuts a[href*="today"]:hover,
+.datetimeshortcuts a[href*="now"]:hover {
+  background: #1976D2 !important;
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.4) !important;
+}
+
+/* 🔧 СКРЫТЬ ЛИШНИЕ КНОПКИ СОХРАНЕНИЯ */
+.submit-row input[name="_continue"],
+.submit-row input[name="_addanother"] {
+  display: none !important;
+}
+
+/* Оставляем только Save кнопку */
+.submit-row input[name="_save"] {
+  margin-right: 10px !important;
+}
+
+/* 📱 RESPONSIVE - АДАПТИВНОСТЬ */
+@media (max-width: 1400px) {
+  #content-main table {
+    font-size: 11px !important;
+  }
+  
+  #content-main table th,
+  #content-main table td {
+    padding: 5px 6px !important;
+  }
+  
+  #content-main table th.column-name {
+    width: 150px !important;
+  }
+  
+  #content-main table th.column-total_invested,
+  #content-main table th.column-total_returned,
+  #content-main table th.column-nav_display,
+  #content-main table th.column-estimated_return_display {
+    width: 80px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  #content-main table {
+    font-size: 10px !important;
+  }
+  
+  #content-main table th,
+  #content-main table td {
+    padding: 4px 5px !important;
+  }
+  
+  #content-main table th.column-name {
+    width: 130px !important;
+  }
+  
+  #content-main table th.column-total_invested,
+  #content-main table th.column-total_returned,
+  #content-main table th.column-nav_display,
+  #content-main table th.column-estimated_return_display {
+    width: 70px !important;
+  }
+}
+
+/* 🖨️ ПЕЧАТЬ - ОПТИМИЗИРОВАННАЯ */
+@media print {
+  #content-main table {
+    font-size: 9px !important;
+    box-shadow: none !important;
+    width: 100% !important;
+  }
+  
+  #content-main table th,
+  #content-main table td {
+    padding: 3px 4px !important;
+    border: 1px solid #000 !important;
+  }
+  
+  #content-main table th {
+    background-color: #f0f0f0 !important;
+  }
+  
+  #content-main table tbody tr:nth-child(even) {
+    background-color: #f8f8f8 !important;
+  }
+  
+  #content-main table th.column-name {
+    width: 120px !important;
+  }
+  
+  #content-main table th.column-total_invested,
+  #content-main table th.column-total_returned,
+  #content-main table th.column-nav_display,
+  #content-main table th.column-estimated_return_display {
+    width: 65px !important;
+  }
+  
+  #content-main table th.column-tvpi_formatted,
+  #content-main table th.column-dpi_formatted {
+    width: 40px !important;
+  }
+  
+  #content-main table th.column-target_irr_display,
+  #content-main table th.column-xirr_display {
+    width: 45px !important;
+  }
+}
+
+/* === РАДИКАЛЬНЫЙ ФИКС ПРОКРУТКИ === */
+
+/* 1. Сбрасываем все overflow на родителях */
+body, #container, #content, .content, #content-main {
+  overflow: visible !important;
+}
+
+/* 2. Создаем wrapper с прокруткой */
+#content-main {
+  position: relative !important;
+}
+
+#content-main > form {
+  width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+}
+
+/* 3. Таблица с фиксированной шириной */
+#content-main table {
+  width: auto !important;
+  min-width: 1500px !important;
+  table-layout: auto !important;
+}
+
+/* 4. Принудительная прокрутка для любого контейнера с таблицей */
+div:has(> table),
+form:has(> table) {
+  overflow-x: auto !important;
+  max-width: 100% !important;
+}
+
+/* 5. Для старых браузеров без :has() */
+.module, .form-row, .results {
+  overflow-x: auto !important;
+}
+
+/* 6. Фикс для Django change-list */
+.change-list #content-main {
+  width: 100% !important;
+}
+
+.change-list #content-main form {
+  overflow-x: auto !important;
+}
+
+/* 7. Стили скроллбара */
+*::-webkit-scrollbar {
+  height: 12px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #888 !important;
+  border-radius: 6px !important;
+}
+
+/* 8. ФИНАЛЬНЫЙ ХАРДКОР - обертка для ВСЕХ таблиц */
+table {
+  display: block !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+}
+
+tbody {
+  display: table !important;
+  width: 100% !important;
+}

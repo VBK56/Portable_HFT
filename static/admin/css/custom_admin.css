@@ -1,0 +1,145 @@
+/* Custom admin CSS: wrap column headers and align content */
+
+/* Header cells: allow multi-line headers and control width */
+#content-main table th {
+  white-space: normal !important;  /* allow text to wrap */
+  word-wrap: break-word;           /* break long words if needed */
+  max-width: 140px;                /* limit width to prevent layout stretch */
+  line-height: 1.2;                /* compact line spacing */
+  padding: 6px 8px !important;     /* consistent padding */
+  text-align: center;              /* center header text */
+  vertical-align: middle;          /* vertical centering */
+}
+
+/* Data cells: keep single-line, right-aligned values */
+#content-main table td {
+  white-space: nowrap;            /* prevent wrapping of data cells */
+  text-align: right;              /* align numbers to the right */
+}
+
+/* Force "Gap to Target IRR" column header to wrap correctly */
+#content-main table th.column-gap_to_target_irr {
+  white-space: normal !important;
+  word-wrap: break-word;
+  max-width: 100px !important;
+  width: 100px !important;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+  padding: 6px 8px !important;
+}
+
+/* Fix for column headers that use <span>: allow wrapping inside spans */
+#content-main table th span {
+  white-space: normal !important;
+  word-wrap: break-word;
+  display: inline-block; /* allow breaking */
+}
+
+/* Fix narrow width for "Target IRR" column */
+#content-main table th.column-target_irr {
+  max-width: 80px !important;
+  width: 80px !important;
+  white-space: normal !important;
+  word-wrap: break-word;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 8px !important;
+  line-height: 1.2;
+}
+
+/* Fix narrow width for "Gap to Target IRR" column */
+#content-main table th.column-gap_to_target_irr {
+  max-width: 40px !important;
+  width: 40px !important;
+  white-space: normal !important;
+  word-wrap: break-word;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 8px !important;
+  line-height: 1.2;
+}
+
+/* --- другие стили выше --- */
+
+th.column-total_invested,
+th.column-total_returned,
+th.column-estimated_return {
+    white-space: normal !important;
+    line-height: 1.2;
+    text-align: center;
+    word-break: break-word;
+    width: 100px !important;
+    max-width: 100px !important;
+    padding: 6px 8px !important;
+}
+
+th.column-total_invested span,
+th.column-total_returned span,
+th.column-estimated_return span {
+    white-space: normal !important;
+    word-break: break-word;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+/* Wrap Estimated Return (USD) column */
+#content-main table th.column-estimated_return_display {
+  white-space: normal !important;
+  word-wrap: break-word;
+  max-width: 100px !important;
+  width: 100px !important;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+  padding: 6px 8px !important;
+}
+
+/* XNPV: заголовок */
+th.column-xnpv_formatted {
+  white-space: normal !important;
+  word-break: break-word;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 8px !important;
+  line-height: 1.2;
+  max-width: 100px !important;
+  width: 100px !important;
+}
+
+/* XNPV: данные */
+td.column-xnpv_formatted {
+  white-space: nowrap;
+  text-align: right;
+  max-width: 100px !important;
+  width: 100px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Заголовок STATUS: компактный, многострочный, без flex */
+th.column-status {
+  white-space: normal !important;
+  word-break: break-word;
+  text-align: center;
+  vertical-align: middle;
+  max-width: 80px !important;
+  width: 80px !important;
+  padding: 6px 8px !important;
+  line-height: 1.2;
+}
+
+/* Центрирование значений в колонке STATUS */
+#content-main table td.column-status {
+  text-align: center !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+}
+
+.inline-group .add-row a {
+    font-size: 15px;
+    padding: 10px 20px;
+    background-color: #cce5ff;
+    border: 1px solid #66b0ff;
+    border-radius: 8px;
+}

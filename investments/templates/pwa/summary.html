@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007cba">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <title>Investment Tracker</title>
+    <link rel="manifest" href="{% url 'manifest' %}">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 50px 20px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .portfolio-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .summary-item {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 12px 8px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .summary-value {
+            font-size: 14px;
+            font-weight: 800;
+            color: #007cba;
+            margin-bottom: 4px;
+            font-family: ui-monospace, monospace;
+        }
+
+        .summary-label {
+            font-size: 9px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .project-name {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .project-status {
+            background: #d4edda;
+            color: #155724;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .project-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .project-metric {
+            text-align: center;
+        }
+
+        .project-metric-value {
+            font-size: 11px;
+            font-weight: 700;
+            color: #333;
+            font-family: ui-monospace, monospace;
+        }
+
+        .project-metric-label {
+            font-size: 8px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+
+        .view-all-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #007cba 0%, #005a87 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Investment Tracker</h1>
+        <div>Portfolio Dashboard</div>
+    </div>
+
+    <div class="container">
+        <!-- Portfolio Summary -->
+        <div class="portfolio-card">
+            <div class="portfolio-title">Portfolio Overview</div>
+            
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-value">${{ total_invested|floatformat:0 }}</div>
+                    <div class="summary-label">Total Invested</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">${{ total_returned|floatformat:0 }}</div>
+                    <div class="summary-label">Total Returned</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">${{ total_nav|floatformat:0 }}</div>
+                    <div class="summary-label">Current NAV</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="portfolio-card">
+            <div class="portfolio-title">💼 Projects</div>
+            
+            {% for project in projects %}
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-name">{{ project.name }}</div>
+                    <div class="project-status">{{ project.status|capfirst }}</div>
+                </div>
+                <div class="project-metrics">
+                    <div class="project-metric">
+                        <div class="project-metric-value">${{ project.get_total_invested|floatformat:0 }}</div>
+                        <div class="project-metric-label">Invested</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">${{ project.get_total_returned|floatformat:0 }}</div>
+                        <div class="project-metric-label">Returned</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">${{ project.get_nav|floatformat:0 }}</div>
+                        <div class="project-metric-label">NAV</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">
+                            {% if project.get_xirr %}{{ project.get_xirr|floatformat:1 }}%{% else %}—{% endif %}
+                        </div>
+                        <div class="project-metric-label">XIRR</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <a href="{% url 'mobile_app' %}" class="view-all-btn">
+                Open Full App
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('{% url "service_worker" %}')
+                .then(reg => console.log('✅ SW registered'))
+                .catch(err => console.log('❌ SW failed'));
+        }
+    </script>
+</body>
+</html>

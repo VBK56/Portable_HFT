@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+    <h2 style="color: #28a745; margin-bottom: 20px;">
+        ✅ Backup Created Successfully!
+    </h2>
+    
+    {% if backup_info %}
+    <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #28a745;">
+        <h3>📦 Backup Details</h3>
+        <ul style="list-style: none; padding: 0;">
+            <li><strong>📁 Location:</strong> <code>{{ backup_info.path }}</code></li>
+            <li><strong>📊 Size:</strong> {{ backup_info.size }}</li>
+            <li><strong>📁 Files count:</strong> {{ backup_info.file_count }}</li>
+            <li><strong>📅 Created:</strong> {{ backup_info.timestamp }}</li>
+        </ul>
+    </div>
+    {% endif %}
+
+    <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffc107;">
+        <h3>📋 What's included in the backup:</h3>
+        <ul>
+            <li><strong>manage.py</strong> - Main Django script</li>
+            <li><strong>db.sqlite3</strong> - Your database</li>
+            <li><strong>investments/</strong> - Your app code and templates</li>
+            <li><strong>tracker/</strong> - Django settings</li>
+            <li><strong>static/</strong> - CSS, JS files</li>
+            <li><strong>export/</strong> - Exported data</li>
+            <li><strong>scripts/</strong> - Utility scripts</li>
+            <li><strong>Configuration files</strong> - requirements.txt, README.md, etc.</li>
+        </ul>
+    </div>
+
+    <div style="background: #d1ecf1; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #bee5eb;">
+        <h3>🛡️ What's excluded:</h3>
+        <ul>
+            <li>__pycache__/ directories</li>
+            <li>*.pyc files</li>
+            <li>Virtual environments (venv/, env/)</li>
+            <li>.git/ repository data</li>
+            <li>node_modules/</li>
+            <li>Previous backups</li>
+        </ul>
+    </div>
+
+    <div style="margin: 30px 0; text-align: center;">
+        <a href="/admin/" class="button" style="background: #007cba; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin: 0 10px;">
+            ← Back to Admin
+        </a>
+        
+        <a href="/admin/investments/project/backup/" class="button" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin: 0 10px;">
+            🔄 Create Another Backup
+        </a>
+    </div>
+</div>
+
+<style>
+.button:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+</style>
+{% endblock %}

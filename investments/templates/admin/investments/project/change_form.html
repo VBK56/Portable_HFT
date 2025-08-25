@@ -1,0 +1,239 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+{% load metrics_filters %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+  .form-row {
+    margin-bottom: 15px;
+  }
+  
+  .form-row .field-box {
+    margin-bottom: 10px;
+  }
+  
+  .help {
+    font-size: 11px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .project-metrics {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 20px 0;
+  }
+  
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .metric-item {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .metric-label {
+    font-weight: bold;
+    color: #333;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .metric-value {
+    font-size: 14px;
+    color: #007cba;
+    font-weight: bold;
+  }
+   
+  /* Кнопки даты */
+  .datetimeshortcuts {
+    display: inline-block !important;
+  }
+  
+  .datetimeshortcuts a {
+    font-size: 10px !important;
+    padding: 2px 4px !important;
+    background: #ffc !important;
+    color: #000 !important;
+    text-decoration: none !important;
+    border-radius: 3px !important;
+    margin: 0 2px !important;
+  }
+  
+  /* Исправляем SVG ошибки */
+  .custom-date-shortcuts svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  .custom-date-shortcuts button svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+</style>
+
+<!-- 🔥 УДАЛЕН СТАРЫЙ JAVASCRIPT БЛОК - ТЕПЕРЬ ВСЕ КАЛЕНДАРНЫЕ КНОПКИ СОЗДАЕТ ТОЛЬКО transaction_actions.js -->
+
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% if original %}
+<div class="project-metrics">
+  <h3 style="margin-bottom: 15px; color: #333; border-bottom: 2px solid #007cba; padding-bottom: 8px;">
+    📊 Project Performance Metrics
+  </h3>
+  
+  <div class="metrics-grid">
+    <div class="metric-item">
+      <div class="metric-label">Total Invested</div>
+      <div class="metric-value">
+        {% if original.get_total_invested %}
+          ${{ original.get_total_invested|floatformat:2 }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">Total Returned</div>
+      <div class="metric-value">
+        {% if original.get_total_returned %}
+          ${{ original.get_total_returned|floatformat:2 }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">Current NAV</div>
+      <div class="metric-value">
+        {% if original.nav %}
+          ${{ original.nav|floatformat:2 }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">XIRR</div>
+      <div class="metric-value">
+        {% if original.get_xirr %}
+          {{ original.get_xirr|format_percentage }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">Target IRR</div>
+      <div class="metric-value">
+        {% if original.target_irr %}
+          {{ original.target_irr|format_percentage }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">Gap to Target</div>
+      <div class="metric-value">
+        {% if original.get_gap_to_target_irr %}
+          {{ original.get_gap_to_target_irr|format_percentage }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">TVPI</div>
+      <div class="metric-value">
+        {% if original.get_tvpi %}
+          {{ original.get_tvpi|floatformat:2 }}x
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">DPI</div>
+      <div class="metric-value">
+        {% if original.get_dpi %}
+          {{ original.get_dpi|floatformat:2 }}x
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="metric-item">
+      <div class="metric-label">RVPI</div>
+      <div class="metric-value">
+        {% if original.get_rvpi %}
+            {{ original.get_rvpi|floatformat:2 }}x
+        {% else %}
+            –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">XNPV</div>
+      <div class="metric-value">
+        {% if original.get_xnpv %}
+          ${{ original.get_xnpv|floatformat:2 }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="metric-item">
+      <div class="metric-label">Estimated Return</div>
+      <div class="metric-value">
+        {% if original.estimated_return %}
+          ${{ original.estimated_return|floatformat:2 }}
+        {% else %}
+          –
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <div style="margin-top: 15px; font-size: 12px; color: #666;">
+    <p><strong>Note:</strong> Metrics are automatically calculated based on transactions. Save the project to refresh calculations.</p>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block submit_buttons_bottom %}
+<div class="submit-row">
+  <!-- 💾 Только безопасная кнопка Save -->
+  <input type="submit" value="💾 Save" name="_save" class="default" />
+  
+  <!-- Убираем опасную кнопку Delete -->
+  <!-- {% if original %}
+    <p class="deletelink-box">
+      <a href="delete/" class="deletelink">🗑️ Delete</a>
+    </p>
+  {% endif %} -->
+</div>
+{% endblock %}
