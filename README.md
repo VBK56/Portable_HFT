@@ -2,6 +2,25 @@
 
 Portable local deployment of the Django application without installing global dependencies.
 
+## 📥 Download
+
+### Option 1: GitHub Clone
+```bash
+git clone https://github.com/VBK56/Portable_HFT.git
+cd Portable_HFT
+```
+
+### Option 2: Direct Download
+- **Latest Release:** [Download ZIP v1.1.1](https://github.com/VBK56/Portable_HFT/archive/refs/tags/v1.1.1.zip)
+- **Source Code:** [Download ZIP](https://github.com/VBK56/Portable_HFT/archive/refs/heads/main.zip)
+
+### Option 3: Local Archive
+If you have the local archive: `InvestmentDjango-Portable-v1.1.1.zip`
+- Extract the archive
+- Follow the setup instructions below
+
+---
+
 ## Contents
 - **Windows:** `setup_windows.bat`, `start_windows.bat`, `refresh_windows.bat`, `reinstall_windows.bat`
 - **macOS:** `Setup.command`, `Start.command` *(optional: `Stop.command`)*
